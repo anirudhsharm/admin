@@ -1,0 +1,49 @@
+<% layout('layouts/admin') %>
+<div class="col-md-12">
+    <form class="form-horizontal" method="post" role="form" action="" name="partnerForm" id="partnerForm">
+        <div class="card ">
+            <div class="card-header">
+                <% include ../elements/flash.ejs %>
+                <a href="<%= admin_url %>subscription-package" class="btn btn-wd btn-info btn-outline pull-right">
+                    <span class="btn-label">
+                        <i class="fa fa-chevron-left"></i>
+                    </span>
+                    Back
+                </a>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Name <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="name"  placeholder="Enter Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Email <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="email" name="email"  placeholder="Enter Email" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Contact <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="contact"  placeholder="Enter Contact" />
+                        </div>
+                    </div>
+                </div>
+            <div class="card-footer text-center">
+                <button type="submit" class="btn btn-info" id = "submitBtn">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function() {
+        App.validatePartnerPage();
+    })
+</script>

@@ -1,0 +1,49 @@
+<% layout('layouts/admin') %>
+<div class="col-md-12">
+    <form class="form-horizontal" method="post" role="form" action="" name="customerForm" id="customerForm">
+        <div class="card ">
+            <div class="card-header">
+                <% include ../elements/flash.ejs %>
+                <a href="<%= admin_url %>offer/customer" class="btn btn-wd btn-info btn-outline pull-right">
+                    <span class="btn-label">
+                        <i class="fa fa-chevron-left"></i>
+                    </span>
+                    Back
+                </a>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">coupon <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="coupon"  placeholder="Enter Coupon" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Percent <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="percent"  placeholder="Enter Percent" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Number Of Uses <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="numberOfUses"  placeholder="Enter Number Of Uses" />
+                        </div>
+                    </div>
+                </div>
+            <div class="card-footer text-center">
+                <button type="submit" class="btn btn-info" id = "submitBtn">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function() {
+        App.validateOfferCustomer();
+    })
+</script>

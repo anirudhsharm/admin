@@ -1,0 +1,98 @@
+<% layout('layouts/admin') %>
+<style>
+    .top-pad-15 {
+        padding-top: 8px;
+    }
+
+    .showError {
+        height: 25px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Add Amount</h4>
+        <ol class="breadcrumb">
+            <li><a href="/">Dashboard</a></li>
+
+            <li class="active">Add Amount</li>
+        </ol>
+    </div>
+</div>
+<div class="row card-box">
+    <div class="row">
+        <div class="form-row row">
+            <div class="form-group col-md-3 col-sm-12">
+                <div class="form-group col-md-12 col-sm-12">
+                    <label class="col-form-label">Distribute Balance </label>
+                    <h2>$<%= (admin_user.distributeAmount).toFixed(2) %></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="user_form" method="post" role="form">
+        <div class="row form-group">
+            <div class="col-md-4 top-pad-15">
+                <label for="field-1" class="control-label">Select CBP</label>
+                <select class="form-control" name="cbp_id" id="cbp_id" class="select2" required>
+                    <option value="" selected>-Select-</option>
+
+                    <% if( cbps && cbps.length>0 ){ %>
+                    <%  cbps.forEach( (cbp) => { %>
+                    <option value="<%= cbp._id %>"> <%= cbp.business_name %> </option>
+                    <% }) %>
+                    <% } %>
+                </select>
+                <div class="cbp_id showError"></div>
+            </div>
+        </div>
+
+
+
+        <div class="row form-group">
+            <div class="col-md-4 top-pad-15">
+                <label for="field-1" class="control-label">Amount<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="amount" id="amount" placeholder="Amount" required
+                    autocomplete="off">
+                <div class="amount showError"></div>
+            </div>
+
+        </div>
+        <div class="row form-group">
+            <button type="submit" id="submit_btn" class="btn btn-info pull-right waves-effect waves-light ladda-button"
+                data-style="slide-left" style="margin-left: 10px;">Submit</button>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $("#user_form").validate({
+
+            "rules": {
+                "amount": {
+                    "required": true,
+                    "number": true,
+                    "greaterThanDistBalcnce":true
+                }
+            }
+        });
+        jQuery.validator.addMethod(
+            "greaterThanDistBalcnce",
+            function (value, element) {
+                if (parseFloat(value) > parseFloat(<%=(admin_user.distributeAmount).toFixed(2) %>)) {
+                    return false
+                } else {
+                    return true
+                }
+            },
+            "Amount must be less than distribute balance");
+
+        setTimeout( ()=>{
+            $('#cbp_id').select2();
+        },2000 )
+    })
+
+
+</script>

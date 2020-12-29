@@ -1,0 +1,295 @@
+/* Assignment manager css */
+
+.table-scroll {
+  position: relative;
+  max-width: 100%;
+  margin: auto;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+.table-wrap {
+  width: 100%;
+  overflow: auto;
+}
+.table-scroll table {
+  width: 100%;
+  margin: auto;
+  table-layout: fixed;
+  border-spacing: 0;
+}
+
+.table-scroll table::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 5px;
+  height: 100%;
+  background: #000;
+  z-index: 1;
+}
+
+.table-scroll .clone::after {
+  content: "";
+  display: none;
+}
+.table-scroll th,
+.table-scroll td {
+  padding: 5px 10px;
+  width: 90px;
+  background: #fff;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.table-scroll thead,
+.table-scroll tfoot {
+  background: #f9f9f9;
+}
+.clone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+.clone th,
+.clone td {
+  visibility: hidden;
+}
+.clone td,
+.clone th {
+  border-color: transparent;
+}
+.clone tbody th {
+  visibility: visible;
+  color: red;
+}
+.clone .fixed-side {
+  border: 1px solid #ddd;
+  background: #eee;
+  visibility: visible;
+  width: 120px;
+}
+.clone thead,
+.clone tfoot {
+  background: transparent;
+}
+.fixed-side {
+  background: #fff !important;
+  color: #666666 !important;
+  border: none !important;
+}
+.fixed-side i {
+  cursor: pointer;
+}
+
+.table-scroll tr {
+  border-bottom: solid 1px #ddd;
+}
+.dote {
+  height: 10px;
+  width: 10px;
+  background: green;
+  display: inline-block;
+  border-radius: 100%;
+  margin-left: 4px;
+}
+.block1 {
+  height: 20px;
+  background: #dddddd;
+  margin-right: 5px;
+  width: 36px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.block2 {
+  height: 20px;
+  background: #dddddd;
+  margin-right: 5px;
+  width: 24px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.block3 {
+  height: 20px;
+  background: #dddddd;
+  margin-right: 5px;
+  width: 12px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.block4 {
+  height: 20px;
+  background: #dddddd;
+  margin-right: 5px;
+  width: 6px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.block5 {
+  height: 20px;
+  background: #dddddd;
+  margin-right: 5px;
+  width: 3px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.vmi {
+  vertical-align: middle !important;
+}
+.show-order {
+  display: flex;
+}
+
+.show-order .block1 {
+  height: 20px;
+  background: #dddddd;
+  margin-right: 5px;
+  max-width: 30px;
+  flex: 1 1 auto;
+}
+.fixed-side {
+  width: 137px !important;
+  max-width: 137px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fixed-side2 {
+  width: 50px !important;
+  max-width: 50px !important;
+}
+.total-detail {
+  padding: 5px;
+  background: #fff;
+  display: block;
+  width: 100% fl;
+  float: left;
+  width: 100%;
+  margin-top: 15px;
+}
+.show-data {
+  font-size: 17px;
+}
+
+.show-data span {
+  color: #5d9cec;
+}
+
+.my-custom-class-for-label {
+  width: 50px;
+  height: 20px;
+  border: 1px solid #eb3a44;
+  border-radius: 5px;
+  background: #fee1d7;
+  text-align: center;
+  line-height: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #eb3a44;
+}
+
+.tr-close {
+  opacity: 0.4;
+}
+
+.block-complete {
+  background: #81c868 !important;
+}
+
+.block-cancel {
+  background: #f05050 !important;
+}
+.custom_icon{
+  font-size: 20px;
+  font-weight: bolder;
+  color: #000;
+}
+.light_custom_icon{
+  font-size: 20px;
+  color: #000;
+}
+
+.disable_anchor{
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.4;
+}
+.description_box {
+  float: right;
+  height: 100px;
+  border: 2px solid #e2d5d5;
+  width: 70%;
+  padding: 5px;
+}
+.validity_alert{
+  color:#e04444;
+}
+.validity_alert .ti-info-alt{
+  background-color: #debb11;
+  border-radius: 10px;
+  color: #716b6b;
+}
+.driver_images{
+  width: 200px;
+  height: 110px;
+  margin-top: 10px;
+}
+input.form-control.datepicker,
+input.form-control.datepicker_validity {
+  background-color: #fff;
+}
+.receiver_list{
+  max-height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#calendar {  
+  margin: 0px 40px auto;
+}
+
+#calendar .fc-view-container{
+  display: none;
+}
+.left_span{
+  font-weight: bold;
+  text-align: left;  
+}
+.right_span{
+  float: right;
+  left: 50%;
+  position: absolute;
+}
+.summary_heading{
+  text-align: center;
+}
+.total_amount{
+  border-top: 1px solid #000;
+  padding-top: 10px;
+}
+.side-menu.left{
+  height: 1000px;
+}
+
+.form-control{
+  background-color: #fff !important
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #949292;
+  font-size: 14;
+  width: 150px!important;
+  /* opacity: 1; Firefox */
+}
+.select_default_value{
+  color: #949292!important;
+}
+td{
+  word-break: break-all!important;
+}
+select{
+  color: #565656!important
+}
+.help-block{
+ color: #f05050!important; 
+}

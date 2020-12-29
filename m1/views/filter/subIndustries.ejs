@@ -1,0 +1,49 @@
+<% layout('layouts/list') %>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card data-tables">
+            <div class="card-header ">
+                <a href="<%= admin_url %>add-filtersub/<%- category %>" class="btn btn-wd btn-info btn-outline pull-right">
+                    <span class="btn-label">
+                        <i class="fa fa fa-plus"></i>
+                    </span>
+                    Add subIndustry
+                </a>
+                <% include ../elements/flash.ejs %>
+            </div>
+            <div class="card-body table-striped table-no-bordered table-hover dataTable dtr-inline table-full-width">
+                <div class="toolbar">
+                </div>
+                <div class="fresh-datatables">
+                    <table id="datatable-filter-list" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="nosort">S.No</th>
+                                <th>Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% (data.industries).forEach(function(industry, index) {
+                                if (industry.category == category) {
+                                    (industry.industries).forEach(function(subIndustry, index2) {
+                            %>
+
+                                <tr>
+                                    <td class="nosort"><%- index2 + 1 %></td>
+                                    <td><%- subIndustry %></td>
+                                </tr>
+                            <% });
+                                }
+                            }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        App.listFilterSubInductriesRecords();
+    })
+</script>

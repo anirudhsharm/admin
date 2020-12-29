@@ -1,0 +1,109 @@
+<% layout('layouts/admin') %>
+<div class="col-md-12">
+    <form class="form-horizontal" method="post" role="form" action="" name="coustomerForm" id="coustomerForm">
+        <div class="card ">
+            <div class="card-header">
+                <% include ../elements/flash.ejs %>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Name <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="name" name="name" value="<%= user.name %>" required="true" placeholder="Enter Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Company Name <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="companyName" value="<%= user.companyName %>" required="true" placeholder="Enter Company Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Designation<star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="designation" value="<%= user.designation %>" required="true" placeholder="Enter Designation" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Website<star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="website" value="<%= user.website %>" required="true" placeholder="Enter Website" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Company Size<star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="companySize" value="<%= user.companySize %>" required="true" placeholder="Enter Company Size" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Email <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="email" disabled email = "true" name="emailID" value="<%= user.emailID %>" required="true" placeholder="Enter Email" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Email credits: <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text"  name="numberOfEmail" value="<%= user.numberOfEmail %>" required="true" placeholder="Enter Email credits" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">SMS credits: <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="numberOfSMS" value="<%= user.numberOfSMS %>" required="true" placeholder="Enter SMS credits" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Contact credits: <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="numberOfContacts" value="<%= user.numberOfSMS %>" required="true" placeholder="Enter Contact credits" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Country Code: <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="phoneNumber_code" value="<%= user.phoneNumber.countryCode %>" required="true" placeholder="Enter Country code" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Phone Number: <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="phoneNumber" value="<%= user.phoneNumber.number %>" required="true" placeholder="Enter Phone Number" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <button type="submit" class="btn btn-info" id = "submitBtn">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function() {
+        userId = "<%= user._id %>";
+        App.validateCustomerPage();
+    })
+</script>

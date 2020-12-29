@@ -1,0 +1,215 @@
+<div class="sidebar" data-color="orange" data-image="<%= admin_url %>/assets/img/sidebar-5.jpg">
+    <div class="sidebar-wrapper">
+        <div class="logo">
+            <a href="<%= admin_url %>" class="simple-text logo-mini">
+                <i class="nc-icon nc-atom"></i>
+            </a>
+            <a href="<%= admin_url %>" class="simple-text logo-normal">
+                <%= site_title %>
+            </a>
+        </div>
+        <div class="user">
+            <div class="photo">
+                <img src="<%= admin_url %>assets/img/default-avatar.png" />
+            </div>
+            <div class="info">
+                <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                    <span>Hey <%= currentUser.name %>,</span>
+                </a>
+            </div>
+        </div>
+        <ul class="nav">
+            <li class="nav-item <%= (controller==='' && action==='') ? 'active' : ''%>">
+                <a class="nav-link" href="<%= admin_url %>">
+                    <i class="nc-icon nc-chart-pie-35"></i>
+                    <p>Dashboard</p>
+                </a>
+            </li>
+            <% if (accessibleManagers.indexOf('/visiting-log') !== -1 || isSuperAdmin) { %>
+                <li class="nav-item <%= (controller==='visiting-log' && action==='') ? 'active' : ''%>">
+                    <a class="nav-link" href="<%= admin_url %>visiting-log">
+                        <i class="nc-icon nc-single-copy-04"></i>
+                        <p>Visiting Statistics</p>
+                    </a>
+                </li>
+            <% } %>
+            <% if (accessibleManagers.indexOf('/customer') !== -1 || isSuperAdmin) { %>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#customerManager">
+                        <i class="nc-icon nc-planet"></i>
+                        <p> Customer Manager
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse <%=(controller === 'customer') ? 'show' : ''%>" id="customerManager">
+                        <ul class="nav">
+                            <li class="nav-item  <%=(controller === 'customer' && action==='add') ? 'active' : ''%>">
+                                <a class="nav-link" href="<%= admin_url %>customer/add">
+                                    <span class="sidebar-mini">AC</span>
+                                    <span class="sidebar-normal">Add Customer</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  <%=(controller === 'customer' && action==='') ? 'active' : ''%>">
+                                <a class="nav-link" href="<%= admin_url %>customer">
+                                    <span class="sidebar-mini">Cl</span>
+                                    <span class="sidebar-normal">Customer List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            <% } %>
+            <% if (accessibleManagers.indexOf('/dataset') !== -1 || isSuperAdmin) { %>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#datasetManager">
+                        <i class="nc-icon nc-spaceship"></i>
+                        <p>
+                            Contact Manager
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse <%=(controller === 'dataset') ? 'show' : ''%>" id="datasetManager">
+                        <ul class="nav">
+                            <li class="nav-item  <%=(controller === 'dataset' && action==='summary') ? 'active' : ''%>">
+                                <a class="nav-link" href="<%= admin_url %>dataset/summary">
+                                    <span class="sidebar-mini">CS</span>
+                                    <span class="sidebar-normal">Contact Summary</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  <%=(controller === 'dataset' && action==='') ? 'active' : ''%>">
+                                <a class="nav-link" href="<%= admin_url %>dataset">
+                                    <span class="sidebar-mini">Cl</span>
+                                    <span class="sidebar-normal">Contact List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            <% } %>
+            <% if (accessibleManagers.indexOf('/subscription-package') !== -1 || isSuperAdmin) { %>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#packageManager">
+                        <i class="nc-icon nc-explore-2"></i>
+                        <p>
+                            Subscription
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse <%=(controller === 'subscription-package') ? 'show' : ''%>" id="packageManager">
+                        <ul class="nav">
+                            <li class="nav-item  <%=(controller === 'subscription-package' && action==='summary') ? 'active' : ''%>">
+                                <a class="nav-link" href="<%= admin_url %>subscription-package/summary">
+                                    <span class="sidebar-mini">SS</span>
+                                    <span class="sidebar-normal">Subscription Summary</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  <%=(controller === 'subscription-package' && action==='') ? 'active' : ''%>">
+                                <a class="nav-link" href="<%= admin_url %>subscription-package">
+                                    <span class="sidebar-mini">SL</span>
+                                    <span class="sidebar-normal">Subscription List</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            <% } %>
+            <% if (accessibleManagers.indexOf('/offer') !== -1 || isSuperAdmin) { %>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#offerManager">
+                        <i class="nc-icon nc-money-coins"></i>
+                        <p>
+                            Offers
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse <%=(controller === 'offer') ? 'show' : ''%>" id="offerManager">
+                        <ul class="nav">
+                            <li class="nav-item  <%=(controller === 'offer' && action==='channel') ? 'active' : ''%>">
+                                <a class="nav-link" href="<%= admin_url %>offer/channel">
+                                    <span class="sidebar-mini">OP</span>
+                                    <span class="sidebar-normal">Offer Partner</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  <%=(controller === 'offer' && action==='customer') ? 'active' : ''%>">
+                                <a class="nav-link" href="<%= admin_url %>offer/customer">
+                                    <span class="sidebar-mini">OC</span>
+                                    <span class="sidebar-normal">Offer Customer</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            <% } %>
+            <% if(isSuperAdmin) { %>
+                <!--li class="nav-item <%= (controller === 'filter-industries' || action==='filter-industries') ? 'active' : ''%>">
+                    <a class="nav-link" href="<%= admin_url %>filter-industries">
+                        <i class="nc-icon nc-paper-2"></i>
+                        <p>Industries Manager</p>
+                    </a>
+                </li-->
+                <li class="nav-item <%= (controller === 'menu') ? 'active' : ''%>">
+                    <a class="nav-link" href="<%= admin_url %>menu">
+                        <i class="nc-icon nc-paper-2"></i>
+                        <p>Module Manager</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#subadminManager">
+                        <i class="nc-icon nc-satisfied"></i>
+                        <p>
+                            Admin Manager
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse <%=(controller === 'subadmin') ? 'show' : ''%>" id="subadminManager">
+                        <ul class="nav">
+                            <li class="nav-item  <%=(controller === 'subadmin' && action==='') ? 'active' : ''%>">
+                                <a class="nav-link" href="<%= admin_url %>subadmin">
+                                    <span class="sidebar-mini">SL</span>
+                                    <span class="sidebar-normal">Sub-admin List</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  <%=(controller === 'subadmin' && action==='add') ? 'active' : ''%>">
+                                <a class="nav-link" href="<%= admin_url %>subadmin/add">
+                                    <span class="sidebar-mini">AS</span>
+                                    <span class="sidebar-normal">Add Sub-admin</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#subadminRoleManager">
+                        <i class="nc-icon nc-notes"></i>
+                        <p>
+                            Role Manager
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse <%=(controller === 'subadmin-role') ? 'show' : ''%>" id="subadminRoleManager">
+                        <ul class="nav">
+                            <li class="nav-item <%=(controller === 'subadmin-role' && action==='') ? 'active' : ''%>">
+                                <a class="nav-link" href="<%= admin_url %>subadmin-role">
+                                    <span class="sidebar-mini">SL</span>
+                                    <span class="sidebar-normal">Sub-admin Role List</span>
+                                </a>
+                            </li>
+                            <li class="nav-item <%=(controller === 'subadmin-role' && action==='add') ? 'active' : ''%>">
+                                <a class="nav-link" href="<%= admin_url %>subadmin-role/add">
+                                    <span class="sidebar-mini">AR</span>
+                                    <span class="sidebar-normal">Add Sub-admin Role</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item <%= (controller==='log' && action==='') ? 'active' : ''%>">
+                    <a class="nav-link" href="<%= admin_url %>log">
+                        <i class="nc-icon nc-chart-pie-35"></i>
+                        <p>Log Preview</p>
+                    </a>
+                </li>
+            <% } %>
+        </ul>
+    </div>
+</div>

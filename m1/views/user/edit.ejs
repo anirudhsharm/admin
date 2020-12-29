@@ -1,0 +1,316 @@
+<% layout('layouts/admin') %>
+    <style>
+        .top-pad-15 {
+            padding-top: 8px;
+        }
+
+        .showError {
+            height: 25px;
+        }
+    </style>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Edit
+                <%= userType %> User</h4>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/">Dashboard</a>
+                </li>
+                <li>
+                    <a href="<%= userType === 'CBP' ? '/users/cbp' : userType === 'CSO' ? '/users/cso' : '/users' %>">
+                        <%= userType === 'CBP' ? 'CBP' : userType === 'CSO' ? 'CSO' : 'CM' %> Users</a>
+                </li>
+                <li class="active">Edit
+                    <%= userType %> User</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row card-box">
+        <form id="user_form" method="post" role="form" enctype="multipart/form-data">
+            <div class="row form-group">
+                <div class="col-md-4 top-pad-15 ">
+                    <label for="field-1" class="control-label">User Name
+                        <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" class="form-control" name="username" placeholder="User Name" required value="<%= user.username || '' %>"
+                        autocomplete="off">
+                    <div class="username showError"></div>
+                </div>
+                <div class="col-md-4 top-pad-15 ">
+                    <label for="field-1" class="control-label">
+                        <%= userType === 'CBP' ? 'First Name' : 'CSO Name' %>
+                            <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" class="form-control" required name="first_name" placeholder="<%= userType === 'CBP' ? 'First Name' : 'CSO Name' %>"
+                        value="<%= user.first_name %>" autocomplete="off">
+                    <div class="first_name showError"></div>
+                </div>
+                <% if(userType === 'CBP') { %>
+                    <div class="col-md-4 top-pad-15 ">
+                        <label for="field-1" class="control-label">Middle Name</label>
+                        <input type="text" class="form-control" name="middle_name" placeholder="Middle Name" value="<%= user.middle_name %>" autocomplete="off">
+                        <div class="middle_name showError"></div>
+                    </div>
+                    <div class="col-md-4 top-pad-15 ">
+                        <label for="field-1" class="control-label">Last Name
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" class="form-control" required name="last_name" placeholder="Last Name" value="<%= user.last_name %>" autocomplete="off">
+                        <div class="last_name showError"></div>
+                    </div>
+                    <% } %>
+                        <div class="col-md-4 top-pad-15 ">
+                            <label for="field-1" class="control-label">Email
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="email" class="form-control" required name="email" placeholder="Email" value="<%= user.email %>" autocomplete="off">
+                            <div class="email showError"></div>
+                        </div>
+                        <div class="col-md-4 top-pad-15 ">
+                            <label for="field-1" class="control-label">
+                                <%= userType === 'CBP' ? 'Business Name' : 'Charity Information' %>
+                                    <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" required name="business_name" placeholder="<%= userType === 'CBP' ? 'Business Name' : 'Charity Information' %>"
+                                value="<%= user.business_name || user.charity_info %>" autocomplete="off">
+                            <div class="business_name showError"></div>
+                        </div>
+                        <div class="col-md-4 top-pad-15 ">
+                            <label for="field-1" class="control-label">Mobile Number
+                                <span class="text-danger">*</span>
+                            </label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" required name="isd_code" placeholder="Country Code" value="<%= user.isd_code %>"
+                                        autocomplete="off" maxlength="5">
+                                    <div class="isd_code showError"></div>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" required name="mobile" placeholder="Mobile Number" value="<%= user.mobile %>" autocomplete="off">
+                                    <div class="mobile showError"></div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-4 top-pad-15 ">
+                            <label for="field-1" class="control-label">Country
+                                <span class="text-danger">*</span>
+                            </label>
+                            <select id="country" class="form-control" name="country" selectedCountry="<%= user.country %>"></select>
+                            <div class="country showError"></div>
+                        </div>
+                        <div class="col-md-4 top-pad-15 ">
+                            <label for="field-1" class="control-label">Zipcode
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" required name="zipcode" placeholder="Zipcode" value="<%= user.zipcode %>" autocomplete="off">
+                            <div class="zipcode showError"></div>
+                        </div>
+                        <% if(userType === 'CBP') { %>
+                            <div class="col-md-4 top-pad-15">
+                                <label for="field-1" class="control-label">Monthly Limit
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" required name="monthly_limit" placeholder="Monthly Limit" value="<%= user.monthly_limit %>"
+                                    autocomplete="off" readonly>
+                                <div class="monthly_limit showError"></div>
+                            </div>
+                            <% } %>
+                            
+                                <% if(userType === 'CBP' && currentUser.role === 5 && user.createdBy==undefined ) { %>
+                                    <div class="col-md-4 top-pad-15 ">
+                                        <label for="field-1" class="control-label" style="margin-top: 32px">Super Admin</label>
+                                        <input style="width: 20px; height: 20px; margin: -23px 0 0 100px;" type="checkbox" class="form-control" name="isCbpSuperAdmin"
+                                            <%- user.isCbpSuperAdmin ? `checked value="on" ` : `` %> autocomplete="off">
+                                    </div>
+                                    <% } %>
+                                        <div class="col-md-4 top-pad-15">
+                                            <label class="control-label">Profile Pic</label>
+                                            <input type="file" name="profile_pic" id="profile_pic">
+                                            <div class="profile_pic showError"></div>
+                                            <span>(Allowed image format jpg, jpeg, png)</span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="col-md-4 top-pad-15">
+                                            <img style="height: 70px;" src="<%= user.profile_pic === '' ? `${process.env.IMAGE_URL}${process.env.USER_DEFAULT_IMG}` : `${process.env.IMAGE_URL}${user.profile_pic}`  %>"
+                                                alt="<%= `${user.first_name} ${user.middle_name || ''} ${user.last_name || ''} ` %>"
+                                            />
+                                        </div>
+            </div>
+            <div class="row form-group">
+                <button type="submit" id="submit_btn" class="btn btn-info pull-right waves-effect waves-light ladda-button" data-style="slide-left"
+                    style="margin-left: 10px;">Submit</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        $(document).ready(function () {
+            let userType = "<%= userType %>";
+            let businessOrCharity = userType === 'CBP' ? 'Business name' : 'Charity info';
+            let firstNameOrCso = userType === 'CBP' ? 'First name' : 'CSO name';
+            $("#user_form").validate({
+                errorPlacement: function (error, element) {
+                    let name = $(element).attr("name");
+                    if (name === 'country') {
+                        $("#country").removeClass('error');
+                        error.appendTo($(".country"));
+                    } else {
+                        $("." + name).text().length === 0 && (error.appendTo($("." + name)));
+                    }
+                },
+                submitHandler: function (form) {
+                    $('#submit_btn').attr('disabled', 'disabled');
+                    form.submit();
+                },
+                rules: {
+                    username: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 30,
+                        pattern: /^[a-zA-Z0-9  !@#$&-_*$]+$/,
+                        remote: {
+                            url: "/users/checkusername",
+                            type: "post",
+                            data: {
+                                _id: function () {
+                                    return "<%= user._id %>"
+                                }
+                            }
+
+                        }
+                    },
+                    first_name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 30,
+                        pattern: /^[a-zA-Z ]+$/
+                    },
+                    middle_name: {
+                        required: false,
+                        minlength: 3,
+                        maxlength: 30,
+                        pattern: /^[a-zA-Z ]+$/
+                    },
+                    last_name: userType === 'CBP' ? {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 30,
+                        pattern: /^[a-zA-Z ]+$/
+                    } : {
+                            required: false,
+                            minlength: 3,
+                            maxlength: 30,
+                            pattern: /^[a-zA-Z ]+$/
+                        },
+                    email: {
+                        required: true,
+                        email: true,
+                        maxlength: 40,
+                        pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                        remote: {
+                            url: "/users/checkemail",
+                            type: "post",
+                            data: {
+                                _id: function () {
+                                    return "<%= user._id %>"
+                                }
+                            }
+
+                        }
+                    },
+                    business_name: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                        pattern: /^[a-zA-Z !@#$&-_*$]+$/
+                    },
+                    mobile: {
+                        required: true,
+                        minlength: 7,
+                        maxlength: 12,
+                        pattern: /^[\d]+$/
+                    },
+                    isd_code: {
+                        required: true,
+                        pattern: /^\+[\d]+$/
+                    },
+                    country: 'required',
+                    zipcode: {
+                        required: true,
+                        pattern: /^[\d]+$/
+                    },
+                    monthly_limit: userType === 'CBP' ? {
+                        required: true,
+                        pattern: /^[\d]+$/
+                    } : {
+                            required: false
+                        },
+                    profile_pic: {
+                        extension: "jpeg|jpg|png"
+                    }
+                },
+                messages: {
+                    username: {
+                        required: 'User name is required',
+                        minlength: 'User name is required to be minimum 3 chars',
+                        maxlength: 'User name is required to be maximum 30 chars',
+                        pattern: 'Please enter a valid username',
+                        remote: "Username is already exist"
+                    },
+                    first_name: {
+                        required: `${firstNameOrCso} is required`,
+                        minlength: `${firstNameOrCso} is required to be minimum 3 chars`,
+                        maxlength: `${firstNameOrCso} is required to be maximum 30 chars`,
+                        pattern: 'Please enter a valid first name'
+                    },
+                    middle_name: {
+                        minlength: `Middle name is required to be minimum 3 chars`,
+                        maxlength: `Middle name is required to be maximum 30 chars`,
+                        pattern: 'Please enter a valid middle name'
+                    },
+                    last_name: {
+                        required: 'Last name is required',
+                        minlength: 'Last name is required to be minimum 3 chars',
+                        maxlength: 'Last name is required to be maximum 30 chars',
+                        pattern: 'Please enter a valid last name'
+                    },
+                    email: {
+                        required: 'Email is required',
+                        email: 'Email is required to be a valid email',
+                        maxlength: 'Email is required to be maximum 40 chars',
+                        pattern: 'Please enter a valid email',
+                        remote: "Email is already exist"
+                    },
+                    business_name: {
+                        required: `${businessOrCharity} is required`,
+                        minlength: `${businessOrCharity} is required to be minimum 3 chars`,
+                        maxlength: `${businessOrCharity} is required to be maximum 50 chars`,
+                        pattern: 'Please enter a valid business name'
+                    },
+                    isd_code: {
+                        required: 'Country code is required',
+                        pattern: 'Please enter a valid country code'
+                    },
+                    mobile: {
+                        required: 'Mobile number is required',
+                        minlength: 'Mobile number is required to be minimum 7 chars',
+                        maxlength: 'Mobile number is required to be maximum 12 chars',
+                        pattern: 'Please enter a valid mobile number'
+                    },
+                    country: 'Please choose a country',
+                    zipcode: {
+                        required: 'Zip code is required',
+                        pattern: 'Please enter a valid zip code'
+                    },
+                    monthly_limit: {
+                        required: 'Monthly limit is required',
+                        pattern: 'Please enter a valid monthly limit'
+                    },
+                    profile_pic: {
+                        "extension": "Invalid image format"
+                    }
+                }
+            });
+        })
+    </script>

@@ -1,0 +1,36 @@
+<% layout('layouts/admin') %>
+<div class="col-md-12">
+    <form class="form-horizontal" method="post" role="form" action="" name="menuEditForm" id="menuEditForm">
+        <div class="card ">
+            <div class="card-header ">
+                <% include ../elements/flash.ejs %>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Title <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="title" value = "<%= menu.title %>" required="true" placeholder="Title" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Order <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input type="text" name = "order" class="form-control" placeholder="Order" required="true" value="<%= menu.order %>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <button type="submit" class="btn btn-info" id = "submitBtn">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function() {
+        App.validateEditMenuPage();
+    })
+</script>

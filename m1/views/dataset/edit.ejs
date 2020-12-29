@@ -1,0 +1,141 @@
+<% layout('layouts/admin') %>
+<div class="col-md-12">
+    <form class="form-horizontal" method="post" role="form" action="" name="contactForm" id="contactForm">
+        <div class="card ">
+            <div class="card-header">
+                <% include ../elements/flash.ejs %>
+                <a href="<%= admin_url %>dataset" class="btn btn-wd btn-info btn-outline pull-right">
+                    <span class="btn-label">
+                        <i class="fa fa-chevron-left"></i>
+                    </span>
+                    Back
+                </a>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">First Name</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="firstName" value="<%= record.firstName %>" placeholder="Enter First Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Last Name</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="lastName" value="<%= record.lastName %>" placeholder="Enter Last Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Industry</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="industry" value="<%= record.industry %>" placeholder="Enter Industry" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Industry Type</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="industryType" value="<%= record.industryType %>" placeholder="Enter Industry Type" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Title</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="title" value="<%= record.title %>" placeholder="Enter Title" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Company Name</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="companyName" value="<%= record.companyName %>" placeholder="Enter Company Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="email" value="<%= record.email %>" placeholder="Enter Email" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Address</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="address" value="<%= record.address %>" placeholder="Enter Address" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">City</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="city" value="<%= record.city %>" placeholder="Enter City" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">State/Province</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="stateOrProvince" value="<%= record.stateOrProvince %>" placeholder="Enter State/Province" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Postal Code</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="postalCode" value="<%= record.postalCode %>" placeholder="Enter Postal Code" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Office Phone</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="officePhone" value="<%= record.officePhone %>" placeholder="Enter Office Phone" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Direct Phone</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="directPhone" value="<%= record.directPhone %>" placeholder="Enter Direct Phone" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Website URL</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="websiteURL" value="<%= record.websiteURL %>" placeholder="Enter Website URL" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Fax</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="fax" value="<%= record.fax %>" placeholder="Enter Fax" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <button type="submit" class="btn btn-info" id = "submitBtn">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

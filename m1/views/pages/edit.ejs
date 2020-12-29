@@ -1,0 +1,45 @@
+<% layout('layouts/admin') %>
+    <link href="http://oss.maxcdn.com/summernote/0.5.1/summernote.css" rel="stylesheet" type="text/css" />
+    <link href="http://oss.maxcdn.com/summernote/0.5.1/summernote-bs3.css" rel="stylesheet" type="text/css" />
+
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Edit
+                <%= page.title %>></h4>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="<%=admin_url%>">Dashboard</a>
+                </li>
+                <li class="active">Edit
+                    <%= page.title %>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row card-box ">
+        <form method="post" id="static_page_form" name="static_page_form" role="form">
+            <div class="row form-group">
+                <div class="col-md-6">
+                    <label for="field-1" class="control-label">Title
+                        <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" class="form-control" required name="title" value="<%= page.title %>" placeholder="Page Title" readonly>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <label for="field-1" class="control-label">Description
+                        <span class="text-danger">*</span>
+                    </label>
+                    <textarea class="summernote" required name="description" required><%= page.description %></textarea>
+                    <div class="description showError"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-info pull-right waves-effect waves-light ladda-button" data-style="slide-left">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>

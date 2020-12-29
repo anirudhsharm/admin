@@ -1,0 +1,190 @@
+<% layout('layouts/list') %>
+<style>
+    svg.ct-chart-bar, svg.ct-chart-line{
+        overflow: visible;
+    }
+    .ct-label.ct-label.ct-horizontal.ct-end {
+        position: relative;
+        justify-content: flex-end;
+        text-align: right;
+        transform-origin: 100% 0;
+        transform: translate(-100%) rotate(-45deg);
+        white-space:nowrap;
+        font-size: 10px !important;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="icon-big text-center icon-warning">
+                                <i class="nc-icon nc-chart text-warning"></i>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="numbers">
+                                <p class="card-category">Total Records</p>
+                                <h4 class="card-title"><%= totalData %></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="">
+                                <p class="card-category text-center"> Countrywise Records</p>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                            <% countrywiseData.map(rec => { %>
+                                                <tr>
+                                                    <td><%= rec._id %></td>
+                                                    <td class="text-right">
+                                                        <%= rec.count %>
+                                                    </td>
+                                                </tr>
+                                            <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card card-stats">
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="">
+                                <p class="card-category text-center"> Designationwise  Records</p>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                            <% designationwiseData.map(rec => { %>
+                                                <tr>
+                                                    <td><%= rec._id %></td>
+                                                    <td class="text-right">
+                                                        <%= rec.count %>
+                                                    </td>
+                                                </tr>
+                                            <% }) %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-header ">
+                    <h4 class="card-title">Industrywise</h4>
+                    <p class="card-category">Records Chart</p>
+                </div>
+                <div class="card-body ">
+                    <div id="chartViews" class="ct-chart"></div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card data-tables">
+                <div class="card-header ">
+                    <% include ../elements/flash.ejs %>
+                </div>
+                <div class="card-body table-striped table-no-bordered table-hover dataTable dtr-inline table-full-width">
+                    <div class="toolbar">
+                    </div>
+                    <div class="fresh-datatables">
+                        <table id="datatable-datasets-history-list" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="nosort">S.No.</th>
+                                    <th>List Name</th>
+                                    <th>Uploaded By</th>
+                                    <th>Number of Contacts </th>
+                                    <th>Skipped Count </th>
+                                    <th>Skipped Sheet </th>
+                                    <th>List Mode</th>
+                                    <th>Date of Upload</th>
+                               </tr>
+                            </thead>
+                            <tbody>
+    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<% 
+    var industryLabel = [];
+    var industrySeries = [];
+    industrywiseData.map(rec => {
+        let label = (rec._id === null) ? 'No industry' : rec._id;
+        industryLabel.push(label);
+        industrySeries.push(rec.count);
+    })
+ %>
+
+<script>
+    $(document).ready(function() {
+        App.listDatasetHistoryRecords();
+
+        
+        var dataViews = {
+            labels:  <%- JSON.stringify(industryLabel) %>,
+            series: [
+                [<%= industrySeries %>]
+            ]
+        };
+
+        var optionsViews = {
+            seriesBarDistance: 10,
+            classNames: {
+                bar: 'ct-bar ct-azure'
+            },
+            axisX: {
+                showGrid: false
+            },
+            height:'300px',
+            plugins: [
+                Chartist.plugins.tooltip()
+            ]
+        };
+
+        var responsiveOptionsViews = [
+            ['screen and (max-width: 640px)', {
+                seriesBarDistance: 5,
+                axisX: {
+                    labelInterpolationFnc: function(value) {
+                        return value[0];
+                    }
+                }
+            }],
+        ];
+
+        Chartist.Bar('#chartViews', dataViews, optionsViews, responsiveOptionsViews);
+        
+    })
+</script>

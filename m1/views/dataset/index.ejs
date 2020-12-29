@@ -1,0 +1,128 @@
+<% layout('layouts/list') %>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card data-tables">
+            <div class="card-header ">
+                <% include ../elements/flash.ejs %>
+                <h4 class="card-title text-center">Advance Search</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" id="filter-form" class = "advance-search">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name = "email" placeholder="Email Address">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name = "firstName" placeholder="First Name">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name = "lastName" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name = "industry" placeholder="Industry">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name = "industryType" placeholder="Industry Type">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name = "companyName" placeholder="Company Name">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name = "city" placeholder="City">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name = "stateOrProvince" placeholder="State/Province">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select name="countryOrRegion" class="form-control">
+                                        <option value = "">Select Country</option>
+                                        <% countrywiseData.map(rec => { %>
+                                            <option value = "<%= rec._id %>"><%= rec._id %></option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <select name="designationLevel" class="form-control">
+                                        <option value = "">Select Designation</option>
+                                        <% designationwiseData.map(rec => { %>
+                                            <option value = "<%= rec._id %>"><%= rec._id %></option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                               
+                            </div>
+                            <div class="col-md-2" style="padding-top: 10px;">
+                                <button class="btn btn-info btn-sm" type="submit">Submit</button>
+                                <button class="btn btn-info btn-sm reset-btn">Reset</button>  
+                            </div>
+                        </div>
+                    </div>       
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card data-tables">
+            <div class="card-header ">
+                <a href="<%= admin_url %>dataset/overwrite" class="btn btn-wd btn-info btn-outline pull-right" style = "margin-left: 10px;">
+                    <span class="btn-label">
+                        <i class="fa fa fa-upload"></i>
+                    </span>
+                    Overwrite Contact
+                </a>
+               
+                <a href="<%= admin_url %>dataset/upload" class="btn btn-wd btn-info btn-outline pull-right">
+                    <span class="btn-label">
+                        <i class="fa fa fa-upload"></i>
+                    </span>
+                    Upload Contact
+                </a>
+            </div>
+            <div class="card-body table-striped table-no-bordered table-hover dataTable dtr-inline table-full-width">
+                <div class="toolbar">
+                </div>
+                <div class="fresh-datatables">
+                    <table id="datatable-datasets-list" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="nosort">S.No.</th>
+                                <th>FirstName</th>
+                                <th>LastName</th>
+                                <th>Email</th>
+                                <th class="nosort">Actions</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        App.listDatasetRecords();
+    })
+</script>

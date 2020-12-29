@@ -1,0 +1,60 @@
+<% layout('layouts/list') %>
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">SUB CBPs</h4>
+        <ol class="breadcrumb">
+            <li><a href="/">Dashboard</a></li>
+            <li class="active">Sub CBP</li>
+        </ol>
+    </div>
+</div>
+<div class="row card-box">
+
+
+    <table id="datatable-transaction" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>UserName</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Time</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if( users && users.length>0 ){ %>
+            <%  users.forEach( (x,i) => { %>
+            <tr>
+                <td><%= i+1 %></td>
+                <td><%= `${x.first_name} ${x.middle_name} ${x.last_name}` %></td>
+                <td><%= x.email %></td>
+                <td><%= x.user_meta.status?"Active":"Inactive" %></td>
+                <td><%= moment(x.created).format("LLL")   %></td>
+                <td>
+                    <a href="/users/editsubcbp/<%= x._id %>" title="Edit"><i class="ti-pencil light_custom_icon"></i> </a>
+                    
+                    <% if (x.user_meta.status) { %>
+                        <a href="/users/update-status?id=<%= x._id %>&status=false" title="Inactivate" onclick="confirmbox(this.href); return false;"> <i class="ti-na light_custom_icon"></i> </a>
+                    <% } else { %>
+                        <a href="/users/update-status?id=<%= x._id %>&status=true" title="Activate" onclick="confirmbox(this.href); return false;"> <i class="ti-check light_custom_icon"></i> </a>
+                    <% } %>
+
+                    <a href="/users/delete/<%= x._id %>" title="Delete" onclick="confirmbox(this.href); return false;"> <i class="ti-trash light_custom_icon"></i> </a>
+                    
+
+                </td>
+            </tr>
+            <% }) %>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+
+
+    })
+</script>

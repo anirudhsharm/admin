@@ -1,0 +1,82 @@
+<% layout('layouts/admin'); %>
+<div class="col-md-12 record-view">
+    <div class="card">
+        <div class="card-header">
+            <% include ../elements/flash.ejs %>
+            <a href="<%= admin_url %>customer" class="btn btn-wd btn-info btn-outline pull-right">
+                <span class="btn-label">
+                    <i class="fa fa-chevron-left"></i>
+                </span>
+                Back
+            </a>
+        </div>
+        <div class="card-body ">
+            <div class="card-block table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                        <tr>
+                            <td>Name:</td>
+                            <td><%- data.name %></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><%- data.emailID %> </td>
+                        </tr>
+                        <tr>
+                            <td>Status:</td>
+                            <td><% if(data.status) { %> Active <% } else {  %> Inactive <% } %> </td>
+                        </tr>
+                        <tr>
+                            <td>Designation:</td>
+                            <td><%- data.designation %> </td>
+                        </tr>
+                        <tr>
+                            <td>Website:</td>
+                            <td><%- data.website %> </td>
+                        </tr>
+                        <tr>
+                            <td>Company Size:</td>
+                            <td><%- data.companySize %> </td>
+                        </tr>
+                        <tr>
+                            <td>Password (SIB):</td>
+                            <td><%- (data.sendinBlue) ? data.sendinBlue.pass : '' %> </td>
+                        </tr>
+                        <tr>
+                            <td>Email credits:</td>
+                            <td><%- data.numberOfEmail %> </td>
+                        </tr>
+                        <tr>
+                            <td>SMS credits:</td>
+                            <td><%- data.numberOfSMS %> </td>
+                        </tr>
+                        <tr>
+                            <td>Contacts credits:</td>
+                            <td><%- data.numberOfContacts %> </td>
+                        </tr>
+                        <tr>
+                            <td>Phone Number:</td>
+                            <td><%- (data.phoneNumber) ? data.phoneNumber.countryCode+' '+data.phoneNumber.number : '' %> </td>
+                        </tr>
+                        <tr>
+                            <td>Subscription plan:</td>
+                            <td><%- (data.subscriptionPackage) ? data.subscriptionPackage.name : '' %> </td>
+                        </tr>
+                        <tr>
+                            <td>Total Due Amount:</td>
+                            <td><%- (data.subscriptionPackage) ? data.subscriptionPackage.price +'<span class="text-success"> - On plan renewal </span>' : '' %> </td>
+                        </tr>
+                        <tr>
+                            <td>Payment Method:</td>
+                            <td>Razorpay</td>
+                        </tr>
+                        <tr>
+                            <td>Joined At:</td>
+                            <td><%= moment(data.registeredOn).format("MMM Do YYYY") %> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

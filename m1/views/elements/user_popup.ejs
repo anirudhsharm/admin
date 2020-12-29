@@ -1,0 +1,132 @@
+
+<div id="con-close-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog"> 
+        <form method="post" action="users/edit_user">
+        <div class="modal-content"> 
+            <div class="modal-header"> 
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
+                <h4 class="modal-title">Edit User Form</h4> 
+            </div> 
+            <div class="modal-body"> 
+                <div class="row"> 
+                    <div class="col-md-6"> 
+                        <div class="form-group"> 
+
+                            <label for="field-1" class="control-label">Prospect Code</label> 
+                            <input type="text" class="form-control" value = "<%= data.applicationID%>" name="applicationID" placeholder="John"> 
+                            <input type="hidden"  name="user_id" value = "<%= data._id%> "> 
+                        </div> 
+                    </div>  
+                    <div class="col-md-6"> 
+                        <label for="field-1" class="control-label">Change Password</label> 
+                        <button type="button" id="passwordReset" class="btn btn-warning btn-rounded waves-effect waves-light">
+                        <span class="btn-label"><i class="fa fa-warning"></i>
+                        </span>Change Password</button>
+                    </div>  
+                </div>
+                <div class="row"> 
+                    <div class="col-md-4"> 
+                        <div class="form-group"> 
+                            <label for="field-1" class="control-label">First Name <span class="text-danger">*</span></label> 
+                            <input type="text" class="form-control" name="applicantFName"  value="<%= data.applicantFName%>" id="field-1" placeholder="John" required> 
+                        </div> 
+                    </div> 
+                    <div class="col-md-4"> 
+                        <div class="form-group"> 
+                            <label for="field-2" class="control-label">Middle Name</label> 
+                            <input type="text" class="form-control" name="applicantMName" value ="<%= data.applicantMName%>" id="field-2" placeholder="Doe"> 
+                        </div> 
+                    </div> 
+                    <div class="col-md-4"> 
+                        <div class="form-group"> 
+                            <label for="field-3" class="control-label">Last Name <span class="text-danger">*</span></label> 
+                            <input type="text" class="form-control" name="applicantLName" value="<%= data.applicantLName%>" id="field-3" placeholder="Doe" required> 
+                        </div> 
+                    </div> 
+                </div><div class="row"> 
+                    <div class="col-md-6"> 
+                        <div class="form-group"> 
+                            <label for="field-4" class="control-label">MobileNo <span class="text-danger">*</span></label> 
+                            <input type="text" class="form-control" readonly="true" name="mobileNo" id="field-4" value="<%= data.mobileNo%>" placeholder="John" required> 
+                        </div> 
+                    </div> 
+                    <div class="col-md-6"> 
+                        <div class="form-group"> 
+                            <label for="field-5" class="control-label">Aadhar No. <span class="text-danger">*</span></label> 
+                            <input type="text" class="form-control" id="field-5" name="adharNo" value="<%= data.adharNo%>" placeholder="Doe" required> 
+                        </div> 
+                    </div> 
+                </div><div class="row"> 
+                    <div class="col-md-12"> 
+                        <div class="form-group"> 
+                            <label for="field-6" class="control-label">Home Address <span class="text-danger">*</span></label> 
+                            <textarea name="homeAddress" class="form-control" required><%= data.homeAddress%></textarea>
+                        </div> 
+                    </div> 
+                    <div class="col-md-6"> 
+                        <div class="form-group"> 
+                            <label for="field-2" class="control-label">Date Of Birth <span class="text-danger">*</span></label> 
+                            <input required type="text"  class="form-control" name="dateOfBirth" id="datepicker-autoclose" value = "<%= moment(data.dateOfBirth).format("MM/DD/YYYY")%> " placeholder="DD/MM/YYYY"> 
+                        </div> 
+                    </div>
+                    <!--div class="col-md-3"> 
+                        <div class="form-group"> 
+                            <label for="field-2" class="control-label">User Status</label> 
+
+                        <% if(data.verification === 0){ %>
+                             <span class="label label-table label-danger">UnVerified</span>
+                        <% }else if(data.verification === 1){ %>
+                            <span class="label label-table label-success">Verified</span>
+                        <% }else if(data.verification === 2){ %>
+                        <span class="label label-table label-inverse">Blocked</span>
+                        <% }else if(data.verification === 3){ %>
+                        <span class="label label-table label-info">Temp Blocked</span>
+                        <% }%>
+                        </div> 
+                    </div--> 
+                    <!--div class="col-md-3"> 
+                        <div class="form-group">
+                            <div class="checkbox checkbox-primary">
+                                <input id="checkbox1" type="checkbox" name="verification"  <% if (parseInt(data.verification )=== 2 || parseInt(data.verification) === 3  ){ %>checked<% }%>>
+                                <label for="checkbox1">
+                                    Block User
+                                </label>
+                            </div>
+                        </div> 
+                    </div--> 
+                </div>
+            </div> 
+            <div class="modal-footer"> 
+                <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button> 
+                <button type="submit" class="btn btn-info waves-effect waves-light">Save Changes</button> 
+            </div> 
+
+        </div> 
+    </div>
+</div><!-- /.modal -->
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+
+    jQuery('#datepicker-autoclose').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        dateFormat: 'yy-mm-dd',
+        onSelect: function(dateText) {
+            // display("Selected date: " + dateText + "; input's current value: " + this.value);
+        }
+    })
+
+     jQuery('#passwordReset').on("click", function(){
+        var confirm1 =  confirm("Are you sure to reset the password?");
+        if(confirm1){
+            return window.open("/password/<%= data._id%>");
+
+        }else{
+            return false
+        }
+        
+    })
+});
+</script>

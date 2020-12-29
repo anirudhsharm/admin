@@ -1,0 +1,223 @@
+<% layout('layouts/admin') %>
+<style>
+    .top-pad-15 {
+        padding-top: 8px;
+    }
+    .showError{
+        height: 25px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Add <%= userType %>  User</h4>
+        <ol class="breadcrumb">
+            <li><a href="/">Dashboard</a></li>
+            <li>
+                <a href="/users/subcbp"> Sub CBP Users</a>
+            </li>
+            <li class="active">Add <%= userType %> User</li>
+        </ol>
+    </div>
+</div>
+<div class="row card-box">
+    <form id="user_form" method="post" role="form" enctype="multipart/form-data">
+        <div class="row form-group">
+            <div class="col-md-4 top-pad-15">
+                <label for="field-1" class="control-label">User Name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="username" placeholder="User Name" required autocomplete="off">
+                <div class="username showError"></div>
+            </div>
+            <div class="col-md-4 top-pad-15">
+                <label for="field-1" class="control-label">First Name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" required name="first_name" placeholder="First Name" autocomplete="off">
+                <div class="first_name showError"></div>
+            </div>
+            <div class="col-md-4 top-pad-15">
+                <label for="field-1" class="control-label">Middle Name</label>
+                <input type="text" class="form-control" name="middle_name" placeholder="Middle Name" autocomplete="off">
+                <div class="middle_name showError"></div>
+            </div>
+            <div class="col-md-4 top-pad-15">
+                <label for="field-1" class="control-label">Last Name<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" required name="last_name" placeholder="Last Name" autocomplete="off">
+                <div class="last_name showError"></div>
+            </div>
+            <div class="col-md-4 top-pad-15">
+                <label for="field-1" class="control-label">Email<span class="text-danger">*</span></label>
+                <input type="email" class="form-control" required name="email" placeholder="Email" autocomplete="off">
+                <div class="email showError"></div>
+            </div>
+            <div class="col-md-4 top-pad-15">
+                <label for="field-1" class="control-label">Password<span class="text-danger">*</span></label>
+                <input type="password" class="form-control" required name="password" placeholder="Password" autocomplete="off">
+                <div class="password showError"></div>
+            </div>
+            
+            <div class="col-md-4 top-pad-15">
+                <label for="field-1" class="control-label">Mobile Number<span class="text-danger">*</span></label>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" required name="isd_code" placeholder="Country Code" autocomplete="off" maxlength="5">
+                        <div class="isd_code showError"></div>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" required name="mobile" placeholder="Mobile Number" autocomplete="off">
+                        <div class="mobile showError"></div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            
+            <div class="col-md-4 top-pad-15">
+                <label class="control-label">Profile Pic</label>
+                <input type="file" name="profile_pic" id="profile_pic">
+                <div class="profile_pic showError"></div>
+                <span>(Allowed image format jpg, jpeg, png)</span>
+            </div>
+        </div>
+        <div class="row form-group">
+            <button type="submit" id="submit_btn" class="btn btn-info pull-right waves-effect waves-light ladda-button" data-style="slide-left" style="margin-left: 10px;">Submit</button>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function(){
+        let userType = "<%= userType %>";
+        let businessOrCharity = userType === 'CBP' ? 'Business name' : 'Charity info';
+        let firstNameOrCso = userType === 'CBP' ? 'First name' : 'CSO name';
+        $("#user_form").validate({
+            errorPlacement: function (error, element) {
+                let name = $(element).attr("name");
+                 if (name === 'country') {
+                    $("#country").removeClass('error');
+                    error.appendTo($(".country"));
+                }else{
+                    $("."+ name).text().length === 0 && (error.appendTo($("." + name)));
+                }
+            },
+            submitHandler: function(form) {
+                $('#submit_btn').attr('disabled', 'disabled');
+                form.submit();
+            },
+            rules: {
+                username:{
+                    required: true,
+                    minlength: 3,
+                    maxlength: 30,
+                    pattern: /^[a-zA-Z0-9 !@#$&-_*$]+$/,
+                    remote: {
+                        url: "/users/checkusername",
+                        type: "post"                        
+                    }
+                },
+                first_name:{
+                    required: true,
+                    minlength: 3,
+                    maxlength: 30,
+                    pattern: /^[a-zA-Z ]+$/
+                },
+                middle_name:{
+                    required: false,
+                    minlength: 3,
+                    maxlength: 30,
+                    pattern: /^[a-zA-Z ]+$/
+                },
+                last_name: userType === 'CBP' ? {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 30,
+                    pattern: /^[a-zA-Z ]+$/
+                } : {
+                    required: false,
+                    minlength: 3,
+                    maxlength: 30,
+                    pattern: /^[a-zA-Z ]+$/
+                },
+                mobile: {
+                    required: true,
+                    minlength: 7,
+                    maxlength: 12,
+                    pattern: /^[\d]+$/
+                },
+                isd_code: {
+                    required: true,
+                    pattern: /^\+[\d]+$/
+                },
+                email: {
+                    required: true,
+                    email: true,
+                    maxlength: 40,
+                    pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    remote: {
+                        url: "/users/checkemail",
+                        type: "post"
+                    }
+                },
+                password: {
+                    required: true,
+                    minlength: 8,
+                    pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}/
+                },
+                
+                profile_pic: {
+                    extension: "jpeg|jpg|png"
+                }
+            },
+            messages: {
+                username: {
+                    required: 'User name is required',
+                    minlength: 'User name is required to be minimum 3 chars',
+                    maxlength: 'User name is required to be maximum 30 chars',
+                    pattern: 'Please enter a valid username',
+                    remote:"Username is already exist"
+                },
+                first_name: {
+                    required: `First Name is required`,
+                    minlength: `First Name is required to be minimum 3 chars`,
+                    maxlength: `First Name is required to be maximum 30 chars`,
+                    pattern: 'Please enter a valid first name'
+                },
+                middle_name: {
+                    minlength: `Middle name is required to be minimum 3 chars`,
+                    maxlength: `Middle name is required to be maximum 30 chars`,
+                    pattern: 'Please enter a valid middle name'
+                },
+                last_name: {
+                    required: 'Last name is required',
+                    minlength: 'Last name is required to be minimum 3 chars',
+                    maxlength: 'Last name is required to be maximum 30 chars',
+                    pattern: 'Please enter a valid last name'
+                },
+                email: {
+                    required: 'Email is required',
+                    email: 'Email is required to be a valid email',
+                    maxlength: 'Email is required to be maximum 40 chars',
+                    pattern: 'Please enter a valid email',
+                    remote:"Email is already exist"
+                },
+                password: {
+                    required: 'Password is required',
+                    minlength: 'Password is required to be minimum 8 chars',
+                    pattern: 'Password must contain a small, capital letter, a special char & one digit'
+                },
+                
+                isd_code: {
+                    required: 'Country code is required',
+                    pattern: 'Please enter a valid country code'
+                },
+                mobile: {
+                    required: 'Mobile number is required',
+                    minlength: 'Mobile number is required to be minimum 7 chars',
+                    maxlength: 'Mobile number is required to be maximum 12 chars',
+                    pattern: 'Please enter a valid mobile number'
+                },
+                
+                profile_pic:{
+                    "extension":"Invalid image format"
+                }
+            }
+        });
+    })
+</script>

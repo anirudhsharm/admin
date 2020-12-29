@@ -1,0 +1,562 @@
+<% layout('layouts/admin') %>
+<style>
+    span.ct-label.ct-vertical.ct-start {
+        margin-left: 5px;
+    }
+    .rote-chart  svg.ct-chart-bar, svg.ct-chart-line{
+        overflow: visible;
+    }
+    .rote-chart .ct-label.ct-label.ct-horizontal.ct-end {
+        position: relative;
+        justify-content: flex-end;
+        text-align: right;
+        transform-origin: 100% 0;
+        transform: translate(-100%) rotate(-45deg);
+        white-space:nowrap;
+        font-size: 10px !important;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        <% if(isSuperAdmin) { %>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center icon-warning">
+                                    <i class="nc-icon nc-chart text-warning"></i>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="numbers">
+                                    <a  href="<%= admin_url %>subadmin" target="_blank">
+                                        <p class="card-category">Total Sub Admin</p>
+                                        <h4 class="card-title"><%= subadminCount %></h4>
+                                    </a>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+        <% if (accessibleManagers.indexOf('/customer') !== -1 || isSuperAdmin) { %>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center icon-warning">
+                                    <i class="nc-icon nc-chart text-warning"></i>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="numbers">
+                                    <a  href="<%= admin_url %>customer" target="_blank">
+                                        <p class="card-category">Total Customer</p>
+                                        <h4 class="card-title"><%= customerCount %></h4>
+                                    </a> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+        <% if (accessibleManagers.indexOf('/dataset') !== -1 || isSuperAdmin) { %>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center icon-warning">
+                                    <i class="nc-icon nc-chart text-warning"></i>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="numbers">
+                                    <a  href="<%= admin_url %>dataset" target="_blank">
+                                        <p class="card-category">Total Contact</p>
+                                        <h4 class="card-title"><%= contactCount %></h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+        <% if (accessibleManagers.indexOf('/subscription-package') !== -1 || isSuperAdmin) { %>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center icon-warning">
+                                    <i class="nc-icon nc-chart text-warning"></i>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="numbers">
+                                    <a  href="<%= admin_url %>subscription-package" target="_blank">
+                                        <p class="card-category">Total Package</p>
+                                        <h4 class="card-title"><%= subscriptionCount %></h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+        <% if (isSuperAdmin) { %>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center icon-warning">
+                                    <i class="nc-icon nc-chart text-warning"></i>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="numbers">
+                                    <p class="card-category">Total Contact Utilised</p>
+                                    <h4 class="card-title"><%= contactDownloadCount %></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center icon-warning">
+                                    <i class="nc-icon nc-chart text-warning"></i>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="numbers">
+                                    <p class="card-category">Total Email sent</p>
+                                    <h4 class="card-title"><%= emailSentCount %></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+    <% if (isSuperAdmin) { %>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card rote-chart">
+                    <div class="card-header ">
+                        <div class="col-md-4" style="float: left;">
+                            <h4 class="card-title">Live Traffic</h4>
+                            <p class="card-category">Records Chart</p>
+                        </div>
+                        <div class="col-md-4" style="float: right;">
+                            <div class="form-group">
+                                <input type="text" name="daterange" id = "traffic-chart-range" class = "form-control" value="01/01/2019 - 01/01/2021" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div id="chartViews4" class="ct-chart"></div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="card-header ">
+                        <div class="col-md-4" style="float: left;">
+                            <h4 class="card-title">Billing</h4>
+                            <p class="card-category">Records Chart</p>
+                        </div>
+                        <div class="col-md-4" style="float: right;">
+                            <div class="form-group">
+                                <input type="text" name="daterange" id = "bill-chart-range" class = "form-control" value="01/01/2019 - 01/01/2021" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div id="chartViews" class="ct-chart"></div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card rote-chart">
+                    <div class="card-header ">
+                        <div class="col-md-4" style="float: left;">
+                            <h4 class="card-title">Contacts Downloads</h4>
+                            <p class="card-category">Records Chart</p>
+                        </div>
+                        <div class="col-md-4" style="float: right;">
+                            <div class="form-group">
+                                <input type="text" name="daterange" id = "contact-chart-range" class = "form-control" value="01/01/2019 - 01/01/2021" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div id="chartViews2" class="ct-chart"></div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card rote-chart">
+                    <div class="card-header ">
+                        <div class="col-md-4" style="float: left;">
+                            <h4 class="card-title">Sent Emails</h4>
+                            <p class="card-category">Records Chart</p>
+                        </div>
+                        <div class="col-md-4" style="float: right;">
+                            <div class="form-group">
+                                <input type="text" name="daterange" id = "sent-chart-range" class = "form-control" value="01/01/2019 - 01/01/2021" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body ">
+                        <div id="chartViews3" class="ct-chart"></div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>
+<% 
+    var billLabel = [];
+    var billSeries = [];
+    billingData.map(record => {
+        record.date = moment(record.createdAt).format("MMM DD YYYY");
+        record.sum_value = record.orderInfo.amount;
+        if (billLabel.indexOf(record.date) > -1) {
+            billSeries[billLabel.indexOf(record.date)] = parseInt(billSeries[billLabel.indexOf(record.date)]) + record.sum_value;
+        }
+        else {
+            billLabel.push(record.date);
+            billSeries.push(record.sum_value);
+        }
+    });
+
+    var contactLabel = [];
+    var contactSeries = [];
+    contactChartData.map(record => {
+        record.date = moment(record.createdAt).format("MMM DD YYYY");
+        record.sum_value = 1;
+        if (contactLabel.indexOf(record.date) > -1) {
+            contactSeries[contactLabel.indexOf(record.date)] = parseInt(contactSeries[contactLabel.indexOf(record.date)]) + record.sum_value;
+        }
+        else {
+            contactLabel.push(record.date);
+            contactSeries.push(record.sum_value);
+        }
+    });
+
+
+    var sentLabel = [];
+    var sentSeries = [];
+    sentChartData.map(record => {
+        record.date = moment(record.createdAt).format("MMM DD YYYY");
+        record.sum_value = 1;
+        if (sentLabel.indexOf(record.date) > -1) {
+            sentSeries[sentLabel.indexOf(record.date)] = parseInt(sentSeries[sentLabel.indexOf(record.date)]) + record.sum_value;
+        }
+        else {
+            sentLabel.push(record.date);
+            sentSeries.push(record.sum_value);
+        }
+    });
+
+    var trafficLabel = [];
+    var trafficSeries = [];
+    trafficChartData.map(record => {
+        record.date = moment(record.created).format("MMM DD YYYY");
+        record.sum_value = 1;
+        if (trafficLabel.indexOf(record.date) > -1) {
+            trafficSeries[trafficLabel.indexOf(record.date)] = parseInt(trafficSeries[trafficLabel.indexOf(record.date)]) + record.sum_value;
+        }
+        else {
+            trafficLabel.push(record.date);
+            trafficSeries.push(record.sum_value);
+        }
+    });
+ %>
+<script>
+    $(document).ready(function() {
+        var dataViews = {
+            labels:  <%- JSON.stringify(billLabel) %>,
+            series: [
+                [<%= billSeries %>]
+            ]
+        };
+
+        var optionsViews = {
+            seriesBarDistance: 10,
+            classNames: {
+                bar: 'ct-bar ct-azure'
+            },
+            axisX: {
+                showGrid: false
+            },
+            height:'300px',
+            plugins: [
+                Chartist.plugins.tooltip()
+            ]
+        };
+
+        var responsiveOptionsViews = [
+            ['screen and (max-width: 640px)', {
+                seriesBarDistance: 5,
+                axisX: {
+                    labelInterpolationFnc: function(value) {
+                        return value[0];
+                    }
+                }
+            }]
+        ];
+        billingView =  Chartist.Bar('#chartViews', dataViews, optionsViews, responsiveOptionsViews);
+
+        $('#bill-chart-range').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            $.ajax({
+                url: '<%= admin_url %>billingView',
+                type: 'POST',
+                data: {start : start.format('YYYY-MM-DD') , end : end.format('YYYY-MM-DD')  },
+                success: function(data) {
+                    var billLabel = [];
+                    var billSeries = [];
+                    data.map(record => {
+                        record.date = moment(record.createdAt).format("MMM DD YYYY");
+                        record.sum_value = record.orderInfo.amount;
+                        if (billLabel.indexOf(record.date) > -1) {
+                            billSeries[billLabel.indexOf(record.date)] = parseInt(billSeries[billLabel.indexOf(record.date)]) + record.sum_value;
+                        }
+                        else {
+                            billLabel.push(record.date);
+                            billSeries.push(record.sum_value);
+                        }
+                    });
+                    var dataViews2 = {
+                        labels:  billLabel,
+                        series: [
+                            billSeries
+                        ]
+                    };
+                    billingView.update(dataViews2);
+                }
+            });
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+
+
+        var dataViews = {
+            labels:  <%- JSON.stringify(contactLabel) %>,
+            series: [
+                [<%= contactSeries %>]
+            ]
+        };
+
+        var optionsViews = {
+            seriesBarDistance: 10,
+            classNames: {
+                bar: 'ct-bar ct-azure'
+            },
+            axisX: {
+                showGrid: false
+            },
+            height:'300px',
+            plugins: [
+                Chartist.plugins.tooltip()
+            ]
+        };
+
+        var responsiveOptionsViews = [
+            ['screen and (max-width: 640px)', {
+                seriesBarDistance: 5,
+                axisX: {
+                    labelInterpolationFnc: function(value) {
+                        return value[0];
+                    }
+                }
+            }]
+        ];
+        contactView =  Chartist.Bar('#chartViews2', dataViews, optionsViews, responsiveOptionsViews);
+
+        $('#contact-chart-range').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            $.ajax({
+                url: '<%= admin_url %>contactView',
+                type: 'POST',
+                data: {start : start.format('YYYY-MM-DD') , end : end.format('YYYY-MM-DD')  },
+                success: function(data) {
+                    var contactLabel = [];
+                    var contactSeries = [];
+                    data.map(record => {
+                        record.date = moment(record.createdAt).format("MMM DD YYYY");
+                        record.sum_value = 1;
+                        if (contactLabel.indexOf(record.date) > -1) {
+                            contactSeries[contactLabel.indexOf(record.date)] = parseInt(contactSeries[contactLabel.indexOf(record.date)]) + record.sum_value;
+                        }
+                        else {
+                            contactLabel.push(record.date);
+                            contactSeries.push(record.sum_value);
+                        }
+                    });
+                    var dataViews2 = {
+                        labels:  contactLabel,
+                        series: [
+                        contactSeries
+                        ]
+                    };
+                    contactView.update(dataViews2);
+                }
+            });
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+
+
+        var dataViews = {
+            labels:  <%- JSON.stringify(sentLabel) %>,
+            series: [
+                [<%= sentSeries %>]
+            ]
+        };
+
+        var optionsViews = {
+            seriesBarDistance: 10,
+            classNames: {
+                bar: 'ct-bar ct-azure'
+            },
+            axisX: {
+                showGrid: false
+            },
+            height:'300px',
+            plugins: [
+                Chartist.plugins.tooltip()
+            ]
+        };
+
+        var responsiveOptionsViews = [
+            ['screen and (max-width: 640px)', {
+                seriesBarDistance: 5,
+                axisX: {
+                    labelInterpolationFnc: function(value) {
+                        return value[0];
+                    }
+                }
+            }]
+        ];
+        sentView =  Chartist.Bar('#chartViews3', dataViews, optionsViews, responsiveOptionsViews);
+
+        $('#sent-chart-range').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            $.ajax({
+                url: '<%= admin_url %>sentView',
+                type: 'POST',
+                data: {start : start.format('YYYY-MM-DD') , end : end.format('YYYY-MM-DD')  },
+                success: function(data) {
+                    var sentLabel = [];
+                    var sentSeries = [];
+                    data.map(record => {
+                        record.date = moment(record.createdAt).format("MMM DD YYYY");
+                        record.sum_value = 1;
+                        if (sentLabel.indexOf(record.date) > -1) {
+                            sentSeries[sentLabel.indexOf(record.date)] = parseInt(sentSeries[sentLabel.indexOf(record.date)]) + record.sum_value;
+                        }
+                        else {
+                            sentLabel.push(record.date);
+                            sentSeries.push(record.sum_value);
+                        }
+                    });
+                    var dataViews2 = {
+                        labels:  sentLabel,
+                        series: [
+                            sentSeries
+                        ]
+                    };
+                    sentView.update(dataViews2);
+                }
+            });
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+
+
+        var dataViews = {
+            labels:  <%- JSON.stringify(trafficLabel) %>,
+            series: [
+                [<%= trafficSeries %>]
+            ]
+        };
+
+        var optionsViews = {
+            seriesBarDistance: 10,
+            classNames: {
+                bar: 'ct-bar ct-azure'
+            },
+            axisX: {
+                showGrid: false
+            },
+            height:'300px',
+            plugins: [
+                Chartist.plugins.tooltip()
+            ]
+        };
+
+        var responsiveOptionsViews = [
+            ['screen and (max-width: 640px)', {
+                seriesBarDistance: 5,
+                axisX: {
+                    labelInterpolationFnc: function(value) {
+                        return value[0];
+                    }
+                }
+            }]
+        ];
+        trafficView =  Chartist.Bar('#chartViews4', dataViews, optionsViews, responsiveOptionsViews);
+
+        $('#traffic-chart-range').daterangepicker({
+            opens: 'left'
+        }, function(start, end, label) {
+            $.ajax({
+                url: '<%= admin_url %>trafficView',
+                type: 'POST',
+                data: {start : start.format('YYYY-MM-DD') , end : end.format('YYYY-MM-DD')  },
+                success: function(data) {
+                    var trafficLabel = [];
+                    var trafficSeries = [];
+                    data.map(record => {
+                        record.date = moment(record.created).format("MMM DD YYYY");
+                        record.sum_value = 1;
+                        if (trafficLabel.indexOf(record.date) > -1) {
+                            trafficSeries[trafficLabel.indexOf(record.date)] = parseInt(trafficSeries[trafficLabel.indexOf(record.date)]) + record.sum_value;
+                        }
+                        else {
+                            trafficLabel.push(record.date);
+                            trafficSeries.push(record.sum_value);
+                        }
+                    });
+                    var dataViews4 = {
+                        labels:  trafficLabel,
+                        series: [
+                        trafficSeries
+                        ]
+                    };
+                    trafficView.update(dataViews4);
+                }
+            });
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+    })
+</script>

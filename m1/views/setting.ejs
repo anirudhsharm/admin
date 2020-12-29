@@ -1,0 +1,87 @@
+<% layout('layouts/admin') %>
+<!-- Page-Title -->
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">App Settings</h4>
+        <ol class="breadcrumb">
+            <li><a href="/">Dashboard</a></li>
+            <li class="active">App Settings</li>
+        </ol>
+    </div>
+</div>
+<div class="row card-box">
+    <form class="form-horizontal" id="appSetting" method="post" role="form" action="">
+
+        <div class="row form-group"> 
+            <div class="margin-20"> 
+                <label for="" class="control-label">Props2 Admin</label>
+            </div>
+            <hr>
+            <div class="col-md-3">
+                <input value="<%= appSetting._id %>" class="form-control" name="id" type="hidden">
+                <label for="ios_version" class="control-label">Ios Version</label>
+                <input value="<%= appSetting.ios_version %>" class="form-control" name="ios_version" type="text">
+               
+            </div>
+            <div class="col-md-3">
+                <label for="ios_link" class="control-label">Ios Link</label>
+                <input value="<%= appSetting.ios_link %>" class="form-control" name="ios_link" type="text">
+               
+            </div>
+            <div class="col-md-3">
+                <label for="ios_force_update" class="control-label">Ios Force Update</label><br>
+                <input type="checkbox" name="ios_force_update" <%= (appSetting.ios_force_update==1)?'checked=checked':'' %> value="1" data-parsley-multiple="ios_force_update">
+               
+            </div>
+            <div class="col-md-3">
+                <label for="ios_maintenance_mode" class="control-label">Maintenance Mode</label><br>
+                <input type="checkbox" name="ios_maintenance_mode" <%= (appSetting.ios_maintenance_mode==1)?'checked=checked':'' %> value="1" data-parsley-multiple="ios_maintenance_mode">
+               
+            </div>
+        </div>
+        <div class="row form-group"> 
+             
+            <div class="col-md-3">
+                <label for="android_version" class="control-label">Android Version</label>
+                <input value="<%= appSetting.android_version %>" class="form-control" name="android_version" type="text">
+               
+            </div>
+            <div class="col-md-3">
+                <label for="android_link" class="control-label">Android Link</label>
+                <input value="<%= appSetting.android_link %>" class="form-control" name="android_link" type="text">
+               
+            </div>
+            <div class="col-md-3">
+                <label for="android_force_update" class="control-label">Android Force Update</label><br>
+                <input type="checkbox" name="android_force_update" <%= (appSetting.android_force_update==1)?'checked=checked':'' %> value="1" data-parsley-multiple="android_force_update">
+               
+            </div>
+            <div class="col-md-3">
+                <label for="android_maintenance_mode" class="control-label">Maintenance Mode</label><br>
+                <input type="checkbox" name="android_maintenance_mode" <%= (appSetting.android_maintenance_mode==1)?'checked=checked':'' %> value="1" data-parsley-multiple="android_maintenance_mode">
+               
+            </div>
+        </div>
+        
+        <div class="row form-group">
+            <div class="margin-20"> 
+                <label for="" class="control-label">System Emails</label>
+            </div>
+            <hr>
+            <div class="col-md-3">
+                <label for="ios_version" class="control-label">Sender Email</label>
+                <input value="<%= appSetting.sender_email %>" class="form-control" name="sender_email" type="text">
+               
+            </div>
+            <div class="col-md-3">
+                <label for="ios_link" class="control-label">Receiver Email</label>
+                <input value="<%= appSetting.receiver_email %>" class="form-control" name="receiver_email" type="text">
+               
+            </div>
+        </div>
+
+        <div class="row form-group"> 
+            <button type="submit" class="btn btn-info pull-right waves-effect waves-light">Submit</button>
+        </div>
+    </form>
+</div>

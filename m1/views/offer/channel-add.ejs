@@ -1,0 +1,62 @@
+<% layout('layouts/admin') %>
+<div class="col-md-12">
+    <form class="form-horizontal" method="post" role="form" action="" name="channelForm" id="channelForm">
+        <div class="card ">
+            <div class="card-header">
+                <% include ../elements/flash.ejs %>
+                <a href="<%= admin_url %>offer/channel" class="btn btn-wd btn-info btn-outline pull-right">
+                    <span class="btn-label">
+                        <i class="fa fa-chevron-left"></i>
+                    </span>
+                    Back
+                </a>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Partner <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <select name="partnerId" class="form-control">
+                                <option value = "">Select Partner</option>
+                                <% partners.map(partner => { %>
+                                    <option value="<%= partner._id %>"><%= partner.name %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">coupon <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="coupon"  placeholder="Enter Coupon" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Percent <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="percent"  placeholder="Enter Percent" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Number Of Uses <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="numberOfUses"  placeholder="Enter Number Of Uses" />
+                        </div>
+                    </div>
+                </div>
+            <div class="card-footer text-center">
+                <button type="submit" class="btn btn-info" id = "submitBtn">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function() {
+        App.validateOfferChannel();
+    })
+</script>

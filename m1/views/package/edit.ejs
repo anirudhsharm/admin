@@ -1,0 +1,118 @@
+<% layout('layouts/admin') %>
+<div class="col-md-12">
+    <form class="form-horizontal" method="post" role="form" action="" name="packageForm" id="packageForm">
+        <div class="card ">
+            <div class="card-header">
+                <% include ../elements/flash.ejs %>
+                <a href="<%= admin_url %>subscription-package" class="btn btn-wd btn-info btn-outline pull-right">
+                    <span class="btn-label">
+                        <i class="fa fa-chevron-left"></i>
+                    </span>
+                    Back
+                </a>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Name <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="name" value="<%= record.name %>" placeholder="Enter Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Verified Contact <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" value="<%= record.verified_contact %>" name="verified_contact" placeholder="Enter verified contact" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">No. Of Email <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="number_of_email" value="<%= record.number_of_email %>" placeholder="Enter number of email" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">No. Of Campaign <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="number_of_campaign" value="<%= record.number_of_campaign %>" placeholder="Enter number of campaign" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Price <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="price" value="<%= record.price %>" placeholder="Enter Price" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Email Marketing</label>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <input name = "email_marketing" type="checkbox" <% if(record.email_marketing) { %> checked="" <% } %> data-toggle="switch" data-on-color="info" data-off-color="info" data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>"> <span class="toggle"></span>
+                        </div>
+                    </div>
+                
+                    <label class="col-sm-2 col-form-label">Marketing Automation</label>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <input name = "marketing_automation" type="checkbox" <% if(record.marketing_automation) { %> checked="" <% } %> data-toggle="switch" data-on-color="info" data-off-color="info" data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>"> <span class="toggle"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Sms Sending</label>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <input name = "sms_sending" type="checkbox" <% if(record.sms_sending) { %> checked="" <% } %> data-toggle="switch" data-on-color="info" data-off-color="info" data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>"> <span class="toggle"></span>
+                        </div>
+                    </div>
+                
+                    <label class="col-sm-2 col-form-label">Social Media Integration</label>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <input name = "social_media_integration" type="checkbox" <% if(record.social_media_integration) { %> checked="" <% } %> data-toggle="switch" data-on-color="info" data-off-color="info" data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>"> <span class="toggle"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">White Labeling</label>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <input name = "white_labeling" type="checkbox"  <% if(record.white_labeling) { %> checked="" <% } %>  data-toggle="switch" data-on-color="info" data-off-color="info" data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>"> <span class="toggle"></span>
+                        </div>
+                    </div>
+               
+                    <label class="col-sm-2 col-form-label">Live Chat Email Support</label>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <input name = "live_chat_email_support" type="checkbox" <% if(record.live_chat_email_support) { %> checked="" <% } %>  data-toggle="switch" data-on-color="info" data-off-color="info" data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>"> <span class="toggle"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Status</label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input name = "status" type="checkbox"  <% if(record.status) { %> checked="" <% } %> data-toggle="switch" data-on-color="info" data-off-color="info" data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>"> <span class="toggle"></span>
+                        </div>
+                    </div>
+                </div>
+            <div class="card-footer text-center">
+                <button type="submit" class="btn btn-info" id = "submitBtn">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function() {
+        App.validatePackagePage();
+    })
+</script>

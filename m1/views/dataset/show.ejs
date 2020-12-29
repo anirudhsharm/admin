@@ -1,0 +1,90 @@
+<% layout('layouts/admin'); %>
+<div class="col-md-12 record-view">
+    <div class="card">
+        <div class="card-header">
+            <% include ../elements/flash.ejs %>
+            <a href="<%= admin_url %>dataset" class="btn btn-wd btn-info btn-outline pull-right">
+                <span class="btn-label">
+                    <i class="fa fa-chevron-left"></i>
+                </span>
+                Back
+            </a>
+        </div>
+        <div class="card-body ">
+            <div class="card-block table-responsive table-full-width">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                        <tr>
+                            <td>First Name</td>
+                            <td><%- data.firstName %></td>
+                        </tr>
+                        <tr>
+                            <td>Last Name:</td>
+                            <td><%- data.lastName %> </td>
+                        </div>
+                        <tr>
+                            <td>Industry:</td>
+                            <td><%- data.industry %> </td>
+                        </div>
+                        <tr>
+                            <td>Industry Type:</td>
+                            <td><%- data.industryType %> </td>
+                        </div>
+                        <tr>
+                            <td>Title:</td>
+                            <td><%- data.title %> </td>
+                        </tr>
+                        <tr>
+                            <td>Company Name:</td>
+                            <td><%- data.companyName %> </td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><%- data.email %> </td>
+                        </tr>
+                        <tr>
+                            <td>Address:</td>
+                            <td><%- data.address %> </td>
+                        </tr>
+                        <tr>
+                            <td>City:</td>
+                            <td><%- data.city %> </td>
+                        </tr>
+                        <tr>
+                            <td>State/Province:</td>
+                            <td><%- data.stateOrProvince %> </td>
+                        </tr>
+                        <tr>
+                            <td>Postal Code:</td>
+                            <td><%- data.postalCode %> </td>
+                        </tr>
+                        <tr>
+                            <td>Office Phone:</td>
+                            <td><%- data.officePhone %> </td>
+                        </tr>
+                        <tr>
+                            <td>Direct Phone:</td>
+                            <td><%- data.directPhone %> </td>
+                        </tr>
+                        <tr>
+                            <td>Website URL:</td>
+                            <td><%- data.websiteURL %> </td>
+                        </tr>
+                        <tr>
+                            <td>Fax:</td>
+                            <td><%- data.fax %> </td>
+                        </tr>
+                        <tr>
+                            <td>Designation Level:</td>
+                            <td><%- data.designationLevel %> </td>
+                        </tr>
+                        <tr>
+                            <td>Created At:</td>
+                            <td><%= moment(data.created).format("MMM Do YYYY") %> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

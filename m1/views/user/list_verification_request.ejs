@@ -1,0 +1,81 @@
+<% layout('layouts/list') %>
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Verification Request Listing</h4>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/">Dashboard</a>
+            </li>
+            <li class="active">Verification Request List</li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="card-box table-responsive">
+        <h4 class="m-t-0 header-title m-b-30"><b>Verification Request Listing</b></h4>
+        <div class="row">
+            <form method="post" id="verification_filter_form">
+                <div class="form-row row">
+                    <div class="form-group col-md-3 col-sm-12">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <label class="col-form-label">Date Range</label>
+                            <input id="date_range" readonly class="form-control" name="dates" autocomplete="off"
+                                   placeholder="Select Joined Date (Range)" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 col-sm-12">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <label class="col-form-label">User Type</label>
+                            
+                            <select name="role" class="form-control" id="s_role">
+                                <option value="">-Status-</option>
+                                <option <% if( "1"==reqData.s_role) { %> selected
+                                    <% } %> value="1" >CM
+                                </option>
+                                <option <% if( "2"==reqData.s_role) { %> selected
+                                    <% } %> value="2" >CBP
+                                </option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-5 col-sm-12" style="margin-top: 27px">
+                        <div class="form-group col-md-3 col-sm-3">
+                            <button type="submit" class="btn btn-info pull-left waves-effect waves-light ladda-button"
+                                    data-style="slide-left">
+                                <span class="ladda-label">Submit</span>
+                                <span class="ladda-spinner"></span>
+                            </button>
+                        </div>
+                        <div class="form-group col-md-3 col-sm-3">
+                            <a href="/users/verification-request" class="btn btn-info pull-left waves-effect waves-light ladda-button"
+                               data-style="slide-left">
+                                <span class="ladda-label">Clear</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <table id="datatable-user-verification-request-list" class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th class="nosort">S.No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Reg Date</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th class="nosort">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

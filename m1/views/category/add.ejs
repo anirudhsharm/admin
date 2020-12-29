@@ -1,0 +1,86 @@
+<% layout('layouts/admin') %>
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Add Category</h4>
+        <ol class="breadcrumb">
+            <li><a href="/">Dashboard</a></li>
+            <li><a href="/Categories">Categories</a></li>
+            <li class="active">Add Category</li>
+        </ol>
+    </div>
+</div>
+<div class="row card-box">
+    <form method="post" id="category_form" name="category_form" role="form" enctype="multipart/form-data" >
+        <div class="row form-group">
+            <div class="col-md-4">
+                <label for="field-1" class="control-label">Category Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" required name="name" placeholder="Name">
+                <div class="name"></div>
+            </div>
+
+            <div class="col-md-4">
+                <label for="field-1" class="control-label">Amount (Coefficient) <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" required name="amount" placeholder="Amount (Coefficient)">
+                <div class="amount"></div>
+            </div>
+            
+            <div class="col-md-4">
+                <label for="field-1" class="control-label">Image <span class="text-danger">*</span> </label>
+                <input type="file" name="image" id="category_image" required>
+                <div class="image"></div>
+                <span>(Allowed image  format jpg, jpeg, png)</span>
+            </div>            
+        </div>
+       
+        <div class="row form-group">
+            <button type="submit" class="btn btn-info pull-right waves-effect waves-light ladda-button" data-style="slide-left" style="margin-left: 10px;" id="submit_btn">Submit</button> 
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function(){
+        $("#category_form").validate({
+            errorPlacement: function (error, element) {
+                var name = $(element).attr("name");
+                error.appendTo($("." + name));
+            },   
+            submitHandler: function(form) {
+                $('#submit_btn').attr('disabled', 'disabled');
+                form.submit();
+            },            
+            rules: {
+                name:{
+                    required: true,
+                    minlength: 3,
+                    maxlength: 30,
+                    //pattern: /^[a-zA-Z1-9 ]+$/
+                },
+                amount:{
+                        required: true,
+                        maxlength: 10,
+                        pattern: /^[1-9.0]+$/
+                },
+                image: {
+                    required: true,
+                    extension: "jpeg|jpg|png"
+                }
+            },
+            messages: {
+                name: {
+                    required: 'Category name is required',
+                    minlength: 'Category name is required to be minimum 3 chars',
+                    maxlength: 'Category name is required to be maximum 30 chars',
+                    //pattern: 'Please enter a valid category name'
+                },
+                amount:{
+                    required: 'Amount is required',
+                    maxlength: 'Amount is required to be maximum 10 digit',
+                    pattern: 'Please enter a valid amount'
+                },
+                image:{
+                    "extension":"Invalid image format"
+                }             
+            }           
+        });
+    })
+</script>

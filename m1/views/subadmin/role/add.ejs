@@ -1,0 +1,40 @@
+<% layout('layouts/admin') %>
+<div class="col-md-12">
+    <form class="form-horizontal" method="post" role="form" action="" name="subAdminRoleForm" id="subAdminRoleForm">
+        <div class="card ">
+            <div class="card-header">
+                <% include ../../elements/flash.ejs %>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Title <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="title" required="true" placeholder="Title" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 col-form-label">Menu <star class="star">*</star></label>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <select multiple data-title="Multiple Select" name="menu" class="selectpicker" data-style="btn-default btn-outline" data-menu-style="dropdown-orange">
+                                <% menus.map(menu => { %>
+                                    <option value="<%= menu._id %>"><%= menu.title %></option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <button type="submit" class="btn btn-info" id = "submitBtn">Save</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function() {
+        App.validateRolePage();
+    })
+</script>

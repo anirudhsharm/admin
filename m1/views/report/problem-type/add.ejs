@@ -1,0 +1,56 @@
+<% layout('layouts/admin') %>
+<div class="row">
+    <div class="col-sm-12">
+        <h4 class="page-title">Add Problem Type</h4>
+        <ol class="breadcrumb">
+            <li><a href="/">Dashboard</a></li>
+            <li><a href="/report/problem">Problem Type</a></li>
+            <li class="active">Add Problem Type</li>
+        </ol>
+    </div>
+</div>
+<div class="row card-box">
+    <form method="post" id="problem_form" name="problem_form" role="form" enctype="multipart/form-data" >
+        <div class="row form-group">
+            <div class="col-md-4">
+                <label for="field-1" class="control-label">Problem Title<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" required name="name" placeholder="Problem Title" autocomplete="off">
+                <div class="name"></div>
+            </div>
+        </div>
+       
+        <div class="row form-group">
+            <button type="submit" class="btn btn-info pull-right waves-effect waves-light ladda-button" data-style="slide-left" style="margin-left: 10px;" id="submit_btn">Submit</button> 
+        </div>
+    </form>
+</div>
+<script>
+    $(document).ready(function(){
+        $("#problem_form").validate({
+            errorPlacement: function (error, element) {
+                const name = $(element).attr("name");
+                error.appendTo($("." + name));
+            },   
+            submitHandler: function(form) {
+                $('#submit_btn').attr('disabled', 'disabled');
+                form.submit();
+            },            
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 50,
+                    pattern: /^[a-zA-Z0-9 ]+$/
+                }
+            },
+            messages: {
+                name: {
+                    required: 'problem type is required',
+                    minlength: 'problem type is required to be minimum 3 chars',
+                    maxlength: 'problem type is required to be maximum 50 chars',
+                    pattern: 'please enter a valid problem type'
+                }
+            }           
+        });
+    })
+</script>

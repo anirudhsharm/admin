@@ -1,0 +1,236 @@
+<% layout('layouts/list') %>
+    <style>
+        .margin-10 {
+            margin-top: 20px
+        }
+    </style>
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">
+                <%= user.role === 2 || user.role === 4 ? 'CBP' : user.role === 3 || user.role === 6 ? 'CSO' : 'CM' %> User Detail</h4>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="/">Dashboard</a>
+                </li>
+                <li>
+                    <a href="<%= user.role === 2 || user.role === 4 ? '/users/cbp' : user.role === 3 || user.role === 6 ? '/users/cso' : '/users' %>">
+                        <%= user.role === 2 || user.role === 4 ? 'CBP' : user.role === 3 || user.role === 6 ? 'CSO' : 'CM' %> Users</a>
+                </li>
+                <li class="active">
+                    <%= user.role === 2 || user.role === 4 ? 'CBP' : user.role === 3 || user.role === 6 ? 'CSO' : 'CM' %> User Detail</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card-box">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12 driver_info_view">
+                        <div class="row form-group">
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>User Name</b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= `${user.username}` %>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>Name</b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= `${user.first_name + user.middle_name+ user.last_name}` %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>Email</b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= `${user.email}` %>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>Mobile</b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= user.formatmobile || 'N/A' %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>Type Of User</b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= user.role === 2 || user.role === 4 ? 'CBP' : user.role === 3 || user.role === 6 ? 'CSO' : 'CM' %>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>Total Number Of Posts </b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= user.total_feed_count || '0' %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>Total Amount Earned</b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= user.total_amount_earned || '0' %>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>Registered From </b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= user.accounts.length ? 'Google' : 'Email' %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>Gender </b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= user.gender %>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>CIS Score</b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= user.cis_score || '0' %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>Date Of Birth</b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= user.dob !== '' ? moment(user.dob, 'DD/MM/YYYY').format("MMM Do YYYY") : 'N/A' %>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>Number Of Followers</b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= `${user.social_count.follow_cm+user.social_count.follow_cbp+user.social_count.follow_cso}` %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>Number Of Following </b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= `${user.social_count.following_cm+user.social_count.following_cbp+user.social_count.following_cso}` %>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 margin-10">
+                                <div class="col-sm-4">
+                                    <b>Zipcode</b>
+                                </div>
+                                <div class="col-sm-1">:</div>
+                                <div class="col-sm-5">
+                                    <%= user.zipcode || 'N/A' %>
+                                </div>
+                            </div>
+                        </div>
+                        <% if(user.createdBy && user.role == 3) { %>
+                            <div class="row form-group">
+                                <div class="col-sm-6 margin-10">
+                                    <div class="col-sm-4">
+                                        <b>Admin Name</b>
+                                    </div>
+                                    <div class="col-sm-1">:</div>
+                                    <div class="col-sm-5">
+                                        <%= `${user.createdBy.first_name+user.createdBy.middle_name+user.createdBy.last_name}` %>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 margin-10">
+                                    <div class="col-sm-4">
+                                        <b>Admin Email</b>
+                                    </div>
+                                    <div class="col-sm-1">:</div>
+                                    <div class="col-sm-5">
+                                        <%= user.createdBy.email %>
+                                    </div>
+                                </div>
+                            </div>
+                            <% if(user.createdBy.formatmobile) { %>
+                                <div class="row form-group">
+                                    <div class="col-sm-6 margin-10">
+                                        <div class="col-sm-4">
+                                            <b>Admin Contact Details</b>
+                                        </div>
+                                        <div class="col-sm-1">:</div>
+                                        <div class="col-sm-5">
+                                            <%= user.createdBy.formatmobile %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% } %>
+                                    <% } %>
+                                        <div class="col-sm-6 margin-10">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <b>Profile Pic</b>
+                                                </div>
+                                                <div class="col-sm-1">:</div>
+                                                <div class="col-sm-5">
+                                                    <img style=" width: 100px; height: 70px;" src="<%= user.profile_pic === '' ? `${process.env.IMAGE_URL}${process.env.USER_DEFAULT_IMG}` : `${process.env.IMAGE_URL}${user.profile_pic}`  %>"
+                                                        alt="<%= `${user.first_name} ${user.middle_name || ''} ${user.last_name || ''} ` %>"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

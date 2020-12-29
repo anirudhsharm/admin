@@ -1,0 +1,50 @@
+/* body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+} */
+
+.pdT30{padding-top:30px;}
+.topField {
+  padding:20px 0;
+  border-bottom: 1px solid #E3E3E3;
+}
+.topField .form-inline.viewField label
+{
+  font-weight: normal;
+  font-size: 14px;
+  padding-right: 8px;
+  color:#000;
+}
+.topField .form-inline.viewField .form-group{ padding-right: 15px; margin-bottom: 7px;}
+
+.form-inline.viewField .form-control{
+  
+  text-align: center;
+  color:#000;
+}
+
+.revinueInfo{
+  padding-top:30px;
+}
+.revinueInfo .infoLabel{
+  font-weight: normal;
+  font-size: 14px;
+  color:#000;
+}
+.revinueInfo .form-control{
+  color:#000;
+}
+.category_image{
+  width: 100px;
+  height: 70px;
+}
+.rating_checked {
+  color: #5fbeaa;
+}
+#sidebar-menu ul ul a {
+ padding: 10px 20px 10px 60px;
+}
